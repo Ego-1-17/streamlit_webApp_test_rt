@@ -1,4 +1,4 @@
-#ライブラリのインポート
+# ライブラリのインポート
 import pandas as pd
 import streamlit as st
 import plotly.express as px
@@ -8,10 +8,23 @@ import os
 current_dir = os.path.dirname(__file__)
 
 # ファイルパスの絶対パスを生成
-file_path = os.path.join(current_dir, '../app_step2/hotel.csv')
+file_path = os.path.join(current_dir, 'hotel.csv')  # 相対パスを修正しました
+
+# デバッグ用にカレントディレクトリのパスを出力
+st.write('Current dir:', os.getcwd())
+# 利用可能なファイル一覧を出力
+st.write('Files:', os.listdir())
+
+# ファイルパス確認のデバッグメッセージ
+st.write('Trying to read from:', file_path)
 
 # DataFrame として CSV を読み込む
-df = pd.read_csv(file_path)
+try:
+    df = pd.read_csv(file_path)
+    # データの読み込みに成功した場合
+    st.write('File read successfully!')
+except Exception as e:
+    st.error(f'Failed to read file: {e}')
 
 # 複数のホテル名を選択できるマルチセレクトボックスをサイドバーに作成
 hotelNames = st.sidebar.multiselect('ホテルを選択してください', df['hotelName'].unique())
@@ -66,7 +79,7 @@ fig_unfiltered = px.scatter(
     title='すべてのホテルのレビューと価格の関係'
 )
 
-# テーブル表示
+# グラフを表示
 st.plotly_chart(fig_unfiltered)
 st.plotly_chart(fig_filtered)
 st.plotly_chart(fig_bar)
