@@ -4,7 +4,7 @@ import streamlit as st
 import plotly.express as px
 
 # CSVファイルの読み込み
-df = pd.read_csv('../Webアプリ/20240319 ver1.2/02_前提知識/2a楽天api/hotel.csv')
+df = pd.read_csv('../app_step2/hotel.csv')
 
 # 複数のホテル名を選択できるマルチセレクトボックスをサイドバーに作成
 hotelNames = st.sidebar.multiselect('ホテルを選択してください', df['hotelName'].unique())
