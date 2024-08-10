@@ -2,9 +2,16 @@
 import pandas as pd
 import streamlit as st
 import plotly.express as px
+import os
 
-# CSVファイルの読み込み
-df = pd.read_csv('../app_step2/hotel.csv')
+# アプリケーションのルートディレクトリを取得
+current_dir = os.path.dirname(__file__)
+
+# ファイルパスの絶対パスを生成
+file_path = os.path.join(current_dir, '../app_step2/hotel.csv')
+
+# DataFrame として CSV を読み込む
+df = pd.read_csv(file_path)
 
 # 複数のホテル名を選択できるマルチセレクトボックスをサイドバーに作成
 hotelNames = st.sidebar.multiselect('ホテルを選択してください', df['hotelName'].unique())
